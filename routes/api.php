@@ -1,10 +1,21 @@
 <?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookingRuanganApiController;
+
 Route::post('login', [AuthController::class,'login']);
 Route::post('register', [AuthController::class,'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    // 🔥 TAMBAHKAN INI
+    Route::get('user', function (Request $request) {
+        return response()->json($request->user());
+    });
+
+    Route::get('ruangan', [RuanganApiController::class, 'index']);
 
     Route::get('booking-ruangan', [BookingRuanganApiController::class, 'index']);
     Route::post('booking-ruangan', [BookingRuanganApiController::class, 'store']);

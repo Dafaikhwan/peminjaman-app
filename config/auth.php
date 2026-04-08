@@ -36,11 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    // 🔥 TAMBAHKAN INI
+    'api' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
