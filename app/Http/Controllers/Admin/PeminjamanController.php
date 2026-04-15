@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Notifications\StatusPeminjamanNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use App\Models\PeminjamanDetail;
@@ -131,17 +131,26 @@ class PeminjamanController extends Controller
 
     // ================= UPDATE STATUS =================
     public function updateStatus(Request $request, Peminjaman $peminjaman)
-    {
-        $request->validate([
-            'status_peminjaman' => 'required|in:pending,diterima,ditolak,dibatalkan'
-        ]);
+{
+    $request->validate([
+        'status_peminjaman' => 'required|in:pending,diterima,ditolak,dibatalkan'
+    ]);
 
-        $peminjaman->update([
-            'status_peminjaman' => $request->status_peminjaman
-        ]);
+    $peminjaman->update([
+        'status_peminjaman' => $request->status_peminjaman
+    ]);
 
-        return back()->with('success','Status diperbarui');
-    }
+    // KIRIM NOTIF KE USER
+    $peminjaman->pengguna->notify(
+        new StatusPeminjamanNotification(
+            'Status Peminjaman Diperbarui',
+            'Peminjaman kamu sekarang berstatus: ' . ucfirst($request->status_peminjaman),
+            '/riwayat-peminjaman'
+        )
+    );
+
+    return back()->with('success','Status diperbarui');
+}
 
     // ================= DELETE =================
     public function destroy(Peminjaman $peminjaman)

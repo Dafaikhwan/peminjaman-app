@@ -15,6 +15,7 @@ class AdminController extends Controller
     // ===== DASHBOARD ADMIN =====
     public function dashboard(Request $request)
     {
+        
         // Ambil peminjaman & laporan
         $peminjamanQuery = Peminjaman::with(['pengguna','details.alat']);
         if ($request->has('status_peminjaman') && $request->status_peminjaman != '') {

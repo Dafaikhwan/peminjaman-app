@@ -48,15 +48,15 @@ class PeminjamanController extends Controller
     ]);
 
     $peminjaman = Peminjaman::create([
-        'pengguna_id' => Auth::id(),
-        'tanggal_mulai' => $request->tanggal_mulai,
-        'tanggal_selesai' => $request->tanggal_selesai,
-        'jam_mulai' => $request->jam_mulai,
-        'jam_selesai' => $request->jam_selesai,
-        'status_peminjaman' => 'pending',
-        'tipe' => 'alat'
-    ]);
-
+    'pengguna_id' => Auth::id(),
+    'tanggal' => $request->tanggal_mulai, // 🔥 INI WAJIB TAMBAH
+    'tanggal_mulai' => $request->tanggal_mulai,
+    'tanggal_selesai' => $request->tanggal_selesai,
+    'jam_mulai' => $request->jam_mulai,
+    'jam_selesai' => $request->jam_selesai,
+    'status_peminjaman' => 'pending',
+    'tipe' => 'alat'
+]);   
     foreach ($request->alat_id as $i => $alatId) {
         PeminjamanDetail::create([
             'peminjaman_id' => $peminjaman->id,

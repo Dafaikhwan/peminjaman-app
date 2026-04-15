@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Notifications\StatusPeminjamanNotification;
 use App\Http\Controllers\Controller;
 use App\Models\BookingRuangan;
 use App\Models\Ruangan;
@@ -69,6 +69,15 @@ class BookingRuanganController extends Controller
         'ruangan_id' => $request->ruangan_id,
         'status' => $request->status,
     ]);
+
+    // KIRIM NOTIF KE USER
+    $booking->pengguna->notify(
+        new StatusPeminjamanNotification(
+            'Status Booking Ruangan',
+            'Booking ruangan kamu sekarang: ' . ucfirst($request->status),
+            '/riwayat-booking'
+        )
+    );
 
     return redirect()->route('admin.booking-ruangan.index')
         ->with('success', 'Booking berhasil diupdate');
