@@ -10,9 +10,7 @@
             <a href="{{ route('admin.laporan.peminjaman.pdf', request()->all()) }}" class="btn btn-danger btn-sm">
                 <i class="bi bi-filetype-pdf"></i> Export PDF
             </a>
-            <a href="{{ route('admin.laporan.peminjaman.excel', request()->all()) }}" class="btn btn-success btn-sm">
-                <i class="bi bi-file-earmark-excel"></i> Export Excel
-            </a>
+            
         </div>
     </div>
 

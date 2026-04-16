@@ -52,9 +52,7 @@
         <a href="{{ route('admin.laporan-kerusakan.exportPdf', request()->all()) }}" class="btn btn-danger" target="_blank">
             📄 Export PDF
         </a>
-        <a href="{{ route('admin.laporan-kerusakan.exportExcel', request()->all()) }}" class="btn btn-success">
-            📊 Export Excel
-        </a>
+        
     </div>
 
     {{-- Tabel --}}
